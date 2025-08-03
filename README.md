@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# NextAuth.js Authentication System
+
+A complete authentication system built with Next.js 15 and NextAuth.js v5, featuring user registration, login, role-based access control, and middleware protection.
+
+## Features
+
+- **Multiple Authentication Methods**
+  - Email/Password credentials
+  - Google OAuth
+  - GitHub OAuth
+- **User Management**
+  - User registration with validation
+  - Secure password hashing with bcrypt
+  - MongoDB integration with Mongoose
+- **Role-Based Access Control**
+  - User and Admin roles
+  - Protected routes with middleware
+  - Admin-only areas
+- **Security Features**
+  - JWT session management
+  - Password field exclusion from queries
+  - Middleware route protection
+
+## Tech Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Authentication**: NextAuth.js v5
+- **Database**: MongoDB with Mongoose
+- **Styling**: Tailwind CSS
+- **Password Hashing**: bcryptjs
+- **TypeScript**: Full type safety
 
 ## Getting Started
 
-First, run the development server:
-
+1. **Clone the repository**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd next-auth
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Install dependencies**
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+3. **Environment Setup**
+Create a `.env.local` file:
+```env
+NEXTAUTH_SECRET=your-secret-key
+AUTH_GOOGLE_ID=your-google-client-id
+AUTH_GOOGLE_SECRET=your-google-client-secret
+AUTH_GITHUB_ID=your-github-client-id
+AUTH_GITHUB_SECRET=your-github-client-secret
+MONGODB_URI=your-mongodb-connection-string
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. **Run the development server**
+```bash
+npm run dev
+```
 
-## Learn More
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+├── app/
+│   ├── api/
+│   │   ├── auth/[...nextauth]/     # NextAuth API routes
+│   │   └── register/               # User registration API
+│   ├── login/                      # Login page
+│   └── provider/                   # Session provider
+├── auth.ts                         # NextAuth configuration
+├── middleware.js                   # Route protection
+├── userModel.js                    # MongoDB user schema
+└── utils/
+    └── checkUtils.ts              # Authentication utilities
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## API Routes
 
-## Deploy on Vercel
+- `POST /api/register` - User registration
+- `GET/POST /api/auth/*` - NextAuth endpoints
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Authentication Flow
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Registration**: Users register via `/api/register`
+2. **Login**: Multiple options via NextAuth providers
+3. **Session**: JWT-based session management
+4. **Protection**: Middleware guards protected routes
+5. **Authorization**: Role-based access control
+
+## Deployment
+
+Deploy on Vercel:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
+
+## License
+
+MIT License
