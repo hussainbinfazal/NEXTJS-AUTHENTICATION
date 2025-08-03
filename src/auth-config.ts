@@ -32,14 +32,22 @@ export const authConfig = {
       const isLoggedIn = !!auth?.user;
       const isOnLogin = nextUrl.pathname === "/login" || nextUrl.pathname === "/register";
       
+      // Redirect authenticated users away from login/register pages
+      if (isOnLogin && isLoggedIn) {
+        return Response.redirect(new URL("/", nextUrl));
+      }
+      
+      // Allow access to login/register for unauthenticated users
       if (isOnLogin) {
         return true;
       }
       
+      // Require authentication for all other pages
       if (!isLoggedIn) {
         return false;
       }
       
+      // Check admin access for admin routes
       if (nextUrl.pathname.startsWith("/admin") && auth.user?.role !== "admin") {
         return false;
       }

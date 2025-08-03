@@ -1,6 +1,7 @@
 "use client";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
+import AuthButton from "../AuthButton";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -20,7 +21,7 @@ export default function LoginPage() {
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 border rounded">
-
+      <AuthButton />
       <h1 className="text-2xl mb-4">Login</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
