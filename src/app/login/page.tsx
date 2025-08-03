@@ -10,15 +10,17 @@ export default function LoginPage() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await signIn("credentials", { email, password, callbackUrl: "/" });
+    const res = await signIn("credentials", {
+      email,
+      password,
+      callbackUrl: "/",
+    });
     // Optionally handle success or error after signIn
-
-    
-
   };
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 border rounded">
+
       <h1 className="text-2xl mb-4">Login</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
@@ -53,7 +55,7 @@ export default function LoginPage() {
           className="w-full p-2 border rounded"
           required
         />
-      
+
         <button
           type="submit"
           className="w-full p-2 bg-blue-500 text-white rounded"
@@ -63,13 +65,13 @@ export default function LoginPage() {
       </form>
       <div className="mt-4 space-y-2">
         <button
-          onClick={() => signIn("google")}
+          onClick={() => signIn("google", { callbackUrl: "/" })}
           className="w-full p-2 bg-red-500 text-white rounded"
         >
           Login with Google
         </button>
         <button
-          onClick={() => signIn("github")}
+          onClick={() => signIn("github", { callbackUrl: "/" })}
           className="w-full p-2 bg-gray-800 text-white rounded"
         >
           Login with GitHub

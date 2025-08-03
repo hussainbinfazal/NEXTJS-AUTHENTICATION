@@ -14,22 +14,34 @@ export async function authenticateUser(credentials: {
   email: string;
   password: string;
 }) {
-  await connectToDatabase();
+  try {
+    await connectToDatabase();
 
-  const user = await (User as any).findOne({ email: credentials.email }).select(
-    "+password"
-  );
-  if (!user) return null;
+    const user = await (User as any).findOne({ email: credentials.email }).select(
+      "+password"
+    );
+    console.log("User found:", !!user);
+    
+    if (!user) {
+      console.log("No user found with email:", credentials.email);
+      return null;
+    }
 
-  const isValid = bcrypt.compareSync(credentials.password, user.password);
-  if (!isValid) return null;
+    const isValid = bcrypt.compare(credentials.password, user.password);
+    console.log("Password valid:", isValid);
+    
+    if (!isValid) return null;
 
-  return {
-    id: user._id.toString(),
-    name: user.name,
-    email: user.email,
-    phoneNumber: user.phoneNumber,
-    role: user.role,
-    profile: user.profile,
-  };
+    return {
+      id: user._id.toString(),
+      name: user.name,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      role: user.role,
+      profile: user.profile,
+    };
+  } catch (error) {
+    console.error("Auth error:", error);
+    return null;
+  }
 }
