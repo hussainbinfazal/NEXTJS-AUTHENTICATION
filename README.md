@@ -63,7 +63,12 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 
 ## Important Notes
 
-⚠️ **Next.js 15 Middleware Location**: If you're using Next.js 15.3.1, the `middleware.js or ts` file should be placed at the **root directory** of your project, not inside the `src` folder. This is a requirement for Next.js 15.3.1.
+⚠️ **Next.js 15.3.1 Requirements**: 
+- **Middleware Location**: The `middleware.js or ts` file should be placed at the **root directory** of your project, not inside the `src` folder.
+- **NextAuth Beta Version**: Use NextAuth.js beta version for compatibility with Next.js 15.3.1:
+  ```bash
+  npm install next-auth@beta
+  ```
 
 ```
 project-root/
