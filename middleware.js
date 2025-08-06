@@ -63,4 +63,9 @@ export async function middleware(req) {
   return NextResponse.next()
 }
 
-export const config = { matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"] }
+export const config = { matcher: ["/((?!api|_next/static|_next/image|favicon.ico|reviews|assets).*)"] }
+
+// This matcher excludes API routes, static files, images, favicon, reviews, and assets from the middleware
+// Adjust the matcher as needed based on your application's structure
+// The middleware will only run for routes that match the specified pattern
+// This helps improve performance by not running middleware on static assets or API routes
